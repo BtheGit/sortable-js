@@ -41,12 +41,12 @@ const createSortableTable = tableContainer => {
   }
   
   const rebuildTable = rows => {
-    const fragment = document.createDocumentFragment();
-    fragment.appendChild(tableBodyContainer.cloneNode());
+    const fakeFragment = document.createElement('div');
+    fakeFragment.appendChild(tableBodyContainer.cloneNode())
     rows.map(row => {
-      fragment.children[0].appendChild(row.cloneNode(true));
+      fakeFragment.children[0].appendChild(row.cloneNode(true));
     })
-    tableContainerNode.replaceChild(fragment, tableContainerNode.querySelector('tbody'));
+    tableContainerNode.replaceChild(fakeFragment.children[0], tableContainerNode.querySelector('tbody'));
     tableBodyContainer = tableContainerNode.children[1];
     tableBody = Array.from(tableBodyContainer.children);
   }
@@ -77,15 +77,15 @@ const createSortableTable = tableContainer => {
       let a = curr.children[sortCol].innerText;
       let b = next.children[sortCol].innerText;
       if(sortUp) {
-        if(!isNaN(a) && !isNaN(b)){
-          return a - b;
+        if(isValidNumber(a) && isValidNumber(b)){
+          return removeCurrency(a) - removeCurrency(b);
         }
         // localeCompare offers support for non-ASCII characters
         return a.localeCompare(b); 
       }
       else {
-        if(!isNaN(a) && !isNaN(b)){
-          return b - a;
+        if(isValidNumber(a) && isValidNumber(b)){
+          return removeCurrency(b) - removeCurrency(a);
         }
         return b.localeCompare(a);
       }
@@ -102,6 +102,9 @@ const createSortableTable = tableContainer => {
     throw err;
   }
 }
+
+const removeCurrency = str => str.replace(/[$,]/g, '');
+const isValidNumber = str => !isNaN(removeCurrency(str));
 
 /**
  * 
