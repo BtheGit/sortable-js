@@ -117,3 +117,5 @@ const generateSortableTables = ({
     throw err;
   }
 }
+
+module.exports = generateSortableTables;
