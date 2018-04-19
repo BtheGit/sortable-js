@@ -1,5 +1,7 @@
 # A no-frills Vanilla.JS drop-in library for turning static tables into sortable ones.
 
+[Live Demo](https://bthegit.github.io/sortable-js/)
+
 ## To use:
 
 First install in the terminal:
