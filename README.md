@@ -13,7 +13,7 @@ npm install sortabletables-js
 Then in your file:
 
 ```javascript
-import sortablejs from 'sortable-js';
+import sortablejs from 'sortabletables-js';
 
 sortablejs();
 ```
@@ -21,7 +21,7 @@ sortablejs();
 or
 
 ```javascript
-const sortablejs = require('sortable-js');
+const sortablejs = require('sortabletables-js');
 
 sortablejs();
 ```
@@ -30,7 +30,7 @@ sortablejs();
 
 To indicate a table should be sortable, add the attribute 'data-sortable' to the table element. Multiple tables on a single page can be sortable.
 
-If you want to prevent a single column in a sortable table from being sortable, add the attribute 'data-fixed' to the \<td/> element in the \<thead/> corresponding to the column you want to be unsortable.
+If you want to prevent a single column in a sortable table from being sortable, add the attribute 'data-fixed' to the \<th/> element in the \<thead/> corresponding to the column you want to be unsortable.
 
 An optional string representing a custom selector can be passed to the library when initialized. By default the library uses '[data-sortable]'.
 
@@ -48,8 +48,8 @@ Tables must follow the following basic structure:
 <table data-sortable>
   <thead>
     <tr>
-      <td></td>
-      <td></td>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -68,6 +68,6 @@ Tables must follow the following basic structure:
 Tables must:
 
 1) Have a single \<thead/> and single \<tbody/>
-2) The \<thead/> must only have one \<tr/> containing at least two \<td/>s
+2) The \<thead/> must only have one \<tr/> containing at least two \<th/>s
 3) The \<tbody/> must contain at least two \<tr/>s
-4) The number of \<td/>s in all \<tr/>s in the table must match
+4) The number of \<td/>s in all \<tr/>s in the \<tbody/> must match the number of \<th/>s in the \<thead/>
