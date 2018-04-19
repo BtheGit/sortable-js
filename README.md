@@ -21,7 +21,7 @@ sortablejs();
 or
 
 ```javascript
-const sortablejs = require('sortable-js);
+const sortablejs = require('sortable-js');
 
 sortablejs();
 ```
@@ -70,4 +70,4 @@ Tables must:
 1) Have a single \<thead/> and single \<tbody/>
 2) The \<thead/> must only have one \<tr/> containing at least two \<td/>s
 3) The \<tbody/> must contain at least two \<tr/>s
-4) The number of columns in all \<tr/>s in the table must match
+4) The number of \<td/>s in all \<tr/>s in the table must match
