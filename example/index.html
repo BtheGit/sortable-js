@@ -17,13 +17,15 @@
     }
 
     header {
-      width: 1000px;
+      width: 800px;
+      margin: 0 auto;
       margin-bottom: 25px;
       text-align: center
     }
 
     table {
       width: 800px;
+      margin: 0 auto;
       height: auto;
       background: #DDD;
     }
@@ -69,7 +71,7 @@
       content: '';
       position: absolute;
       right: 20px;
-      top: calc(50% - 2.5px);
+      top: calc(50% - 6px);
       width: 0; 
       height: 0; 
       border-left: 5px solid transparent;
@@ -77,13 +79,34 @@
       border-bottom: 5px solid white;
     }
 
+    thead td::before {
+      display: none;
+      content: '';
+      position: absolute;
+      right: 20px;
+      bottom: calc(50% - 6px);
+      width: 0; 
+      height: 0; 
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid white;
+      transform: rotate(180deg);
+    }
+
+    thead td[data-sorted="false"]::before{
+      display: block;
+    }
+
+    thead td[data-sorted="false"]::after{
+      display: block;
+    }
+
     thead td[data-sorted="up"]::after {
       display: block;
     }
 
-    thead td[data-sorted="down"]::after {
+    thead td[data-sorted="down"]::before {
       display: block;
-      transform: rotate(180deg);
     }
   </style>
 </head>
@@ -97,7 +120,7 @@
           <td>Text</td>
           <td>Mixed</td>
           <td>With Blank</td>
-          <td data-fixed>Fixed</td>
+          <td data-fixed>Fixed <em> (no sort)</em></td>
         </tr>
       </thead>
       <tbody>
@@ -125,33 +148,40 @@
     <table data-sortable>
       <thead>
         <tr>
-          <td>First</td>
-          <td>Last</td>
-          <td>Age</td>
-          <td>Birthday</td>
+          <td>Nums</td>
+          <td>Case</td>
+          <td>Mixed</td>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>Cow</td>
-          <td>Abunga</td>
-          <td>30</td>
-          <td>6/2/1982</td>
+          <td>0</td>
+          <td>Heart</td>
+          <td>44 N Edgewood St</td>
         </tr>
         <tr>
-          <td>Frank</td>
-          <td>Ali</td>
-          <td>39</td>
-          <td>9/1/1978</td>
+          <td>-0.9</td>
+          <td></td>
+          <td>122 Xintian St</td>
         </tr>
         <tr>
-          <td>Julius</td>
-          <td>Caesar</td>
-          <td>54</td>
-          <td>1/1/540</td>
+          <td>0.9</td>
+          <td>heart</td>
+          <td>34 Wilson Blvd</td>
+        </tr>
+        <tr>
+          <td>10000</td>
+          <td>Heartache</td>
+          <td>1600 Pennsylvania Ave</td>
+        </tr>
+        <tr>
+          <td>10e2</td>
+          <td>Heart-ache</td>
+          <td>Oz</td>
         </tr>
       </tbody>
     </table>
     <script src="../lib/index.js"></script>
+    <script>generateSortableTables()</script>
 </body>
 </html>

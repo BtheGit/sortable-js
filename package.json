@@ -1,12 +1,15 @@
 {
-  "name": "vanilla-table-sorting",
+  "name": "tablesort-js",
   "version": "0.1.0",
   "description": "A Vanilla.js dropin library for making HTML tables sortable",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Brendan Beltz",
+  "author": "Brendan Beltz <brendanwebdev@gmail.com> (https://github.com/bthegit)",
+  "bugs": {
+    "url": "https://github.com/BtheGit/sortable-js/issues"
+  },  
   "license": "ISC",
   "dependencies": {
     "@babel/preset-env": "^7.0.0-beta.44"
