@@ -35,7 +35,7 @@
       height: 40px;
     }
 
-    td {
+    td, th {
       box-shadow: 0 0 2px #444 inset;
       height: 100%;
       flex: 1;
@@ -44,7 +44,7 @@
       align-items: center;
     }
 
-    tbody td[data-sorted="true"] {
+    td[data-sorted="true"] {
       background: #EEE;
     }
 
@@ -53,20 +53,20 @@
       color: white;
     }
 
-    thead td {
+    th {
       position: relative;
       box-shadow: 0 0 1px #DDD inset;
     }
 
-    thead td:not([data-fixed]) {
+    th:not([data-fixed]) {
       cursor: pointer;
     }
 
-    thead td[data-sorted="up"], thead td[data-sorted="down"] {
+    th[data-sorted="up"], th[data-sorted="down"] {
       background: #777;
     }
 
-    thead td::after {
+    th::after {
       display: none;
       content: '';
       position: absolute;
@@ -79,7 +79,7 @@
       border-bottom: 5px solid white;
     }
 
-    thead td::before {
+    th::before {
       display: none;
       content: '';
       position: absolute;
@@ -93,19 +93,19 @@
       transform: rotate(180deg);
     }
 
-    thead td[data-sorted="false"]::before{
+    th[data-sorted="false"]::before{
       display: block;
     }
 
-    thead td[data-sorted="false"]::after{
+    th[data-sorted="false"]::after{
       display: block;
     }
 
-    thead td[data-sorted="up"]::after {
+    th[data-sorted="up"]::after {
       display: block;
     }
 
-    thead td[data-sorted="down"]::before {
+    th[data-sorted="down"]::before {
       display: block;
     }
   </style>
@@ -117,10 +117,10 @@
     <table data-sortable>
       <thead>
         <tr>
-          <td>Text</td>
-          <td>Mixed</td>
-          <td>With Blank</td>
-          <td data-fixed>Fixed <em> (no sort)</em></td>
+          <th>Text</th>
+          <th>Mixed</th>
+          <th>With Blank</th>
+          <th data-fixed>Fixed <em> (no sort)</em></th>
         </tr>
       </thead>
       <tbody>
@@ -148,9 +148,9 @@
     <table data-sortable>
       <thead>
         <tr>
-          <td>Nums</td>
-          <td>Case</td>
-          <td>Mixed</td>
+          <th>Nums</th>
+          <th>Case</th>
+          <th>Mixed</th>
         </tr>
       </thead>
       <tbody>
