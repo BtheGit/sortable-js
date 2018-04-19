@@ -12,9 +12,9 @@ const createSortableTable = tableContainer => {
     throw new Error('A table with a <thead/> containing more than one <tr/> is not sortable')
   }
   const headerRow = headerRows[0];
-  let headers = Array.from(headerRow.querySelectorAll('td'));
+  let headers = Array.from(headerRow.querySelectorAll('th'));
   if(headers.length < 2){
-    throw new Error('Tables must contain a <thead/> with more than one <td/> to be sortable')
+    throw new Error('Tables must contain a <thead/> with more than one <th/> to be sortable')
   }
   let tableBodyContainer = tableContainerNode.querySelector('tbody');
   if(!tableBodyContainer){
