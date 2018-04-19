@@ -41,12 +41,12 @@ const createSortableTable = tableContainer => {
   }
   
   const rebuildTable = rows => {
-    const fragment = document.createDocumentFragment();
-    fragment.appendChild(tableBodyContainer.cloneNode());
+    const fakeFragment = document.createElement('div');
+    fakeFragment.appendChild(tableBodyContainer.cloneNode())
     rows.map(row => {
-      fragment.children[0].appendChild(row.cloneNode(true));
+      fakeFragment.children[0].appendChild(row.cloneNode(true));
     })
-    tableContainerNode.replaceChild(fragment, tableContainerNode.querySelector('tbody'));
+    tableContainerNode.replaceChild(fakeFragment.children[0], tableContainerNode.querySelector('tbody'));
     tableBodyContainer = tableContainerNode.children[1];
     tableBody = Array.from(tableBodyContainer.children);
   }
