@@ -24,6 +24,10 @@ const createSortableTable = tableContainer => {
   if(tableBody.length < 2){
     throw new Error('Tables must contain a <tbody/> with at least two rows to be sortable')
   }
+
+  if(!tableBody.every(row => row.children.length === headers.length)){
+    throw new Error('All <tr/>s in <tbody/> must contain the same number of <td/>s as the <tr/> in the <thead/>')
+  }
   
   const addEventListeners = headers => {
     headers.map((cell, col) => {
