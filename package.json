@@ -1,0 +1,17 @@
+{
+  "name": "vanilla-table-sorting",
+  "version": "0.1.0",
+  "description": "A Vanilla.js dropin library for making HTML tables sortable",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brendan Beltz",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/preset-env": "^7.0.0-beta.44"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0"
+  }
+}

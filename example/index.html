@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      padding: 20px;
+    }
+
+    header {
+      width: 1000px;
+      margin-bottom: 25px;
+      text-align: center
+    }
+
+    table {
+      width: 800px;
+      height: auto;
+      background: #DDD;
+    }
+
+    tr {
+      display: flex;
+      height: 40px;
+    }
+
+    td {
+      box-shadow: 0 0 2px #444 inset;
+      height: 100%;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    tbody td[data-sorted="true"] {
+      background: #EEE;
+    }
+
+    thead {
+      background: #444;
+      color: white;
+    }
+
+    thead td {
+      position: relative;
+      box-shadow: 0 0 1px #DDD inset;
+    }
+
+    thead td:not([data-fixed]) {
+      cursor: pointer;
+    }
+
+    thead td[data-sorted="up"], thead td[data-sorted="down"] {
+      background: #777;
+    }
+
+    thead td::after {
+      display: none;
+      content: '';
+      position: absolute;
+      right: 20px;
+      top: calc(50% - 2.5px);
+      width: 0; 
+      height: 0; 
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid white;
+    }
+
+    thead td[data-sorted="up"]::after {
+      display: block;
+    }
+
+    thead td[data-sorted="down"]::after {
+      display: block;
+      transform: rotate(180deg);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Multiple Sortable Tables</h1>
+    </header>
+    <table data-sortable>
+      <thead>
+        <tr>
+          <td>Text</td>
+          <td>Mixed</td>
+          <td>With Blank</td>
+          <td data-fixed>Fixed</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Brendan</td>
+          <td>445</td>
+          <td>35</td>
+          <td>6/2/1982</td>
+        </tr>
+        <tr>
+          <td>Rob</td>
+          <td>Lowe</td>
+          <td></td>
+          <td>9/1/1934</td>
+        </tr>
+        <tr>
+          <td>Jesus</td>
+          <td>lowe</td>
+          <td>33</td>
+          <td>1/1/0</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <table data-sortable>
+      <thead>
+        <tr>
+          <td>First</td>
+          <td>Last</td>
+          <td>Age</td>
+          <td>Birthday</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cow</td>
+          <td>Abunga</td>
+          <td>30</td>
+          <td>6/2/1982</td>
+        </tr>
+        <tr>
+          <td>Frank</td>
+          <td>Ali</td>
+          <td>39</td>
+          <td>9/1/1978</td>
+        </tr>
+        <tr>
+          <td>Julius</td>
+          <td>Caesar</td>
+          <td>54</td>
+          <td>1/1/540</td>
+        </tr>
+      </tbody>
+    </table>
+    <script src="../lib/index.js"></script>
+</body>
+</html>
