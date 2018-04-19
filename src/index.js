@@ -77,15 +77,15 @@ const createSortableTable = tableContainer => {
       let a = curr.children[sortCol].innerText;
       let b = next.children[sortCol].innerText;
       if(sortUp) {
-        if(!isNaN(a) && !isNaN(b)){
-          return a - b;
+        if(isValidNumber(a) && isValidNumber(b)){
+          return removeCurrency(a) - removeCurrency(b);
         }
         // localeCompare offers support for non-ASCII characters
         return a.localeCompare(b); 
       }
       else {
-        if(!isNaN(a) && !isNaN(b)){
-          return b - a;
+        if(isValidNumber(a) && isValidNumber(b)){
+          return removeCurrency(b) - removeCurrency(a);
         }
         return b.localeCompare(a);
       }
@@ -102,6 +102,9 @@ const createSortableTable = tableContainer => {
     throw err;
   }
 }
+
+const removeCurrency = str => str.replace(/[$,]/g, '');
+const isValidNumber = str => !isNaN(removeCurrency(str));
 
 /**
  * 
