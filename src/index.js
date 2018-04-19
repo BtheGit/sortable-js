@@ -99,15 +99,18 @@ const createSortableTable = tableContainer => {
   }
 }
 
-const generateSortableTables = ({
-  hook = 'table[data-sortable]',
-} = {}) => {
+/**
+ * 
+ * @param {string} [hook="[data-sortable]"] The selector used to identify tables designated for sorting
+ * @returns {HTMLElement[]} An array of nodes representing the table elements of sortable tables
+ */
+const generateSortableTables = (hook = '[data-sortable]') => {
   if(typeof hook !== 'string'){
     throw new Error('Must use a valid selector string as hook');
   }
   
   try {
-    const tables = Array.from(document.querySelectorAll(hook));
+    const tables = Array.from(document.querySelectorAll(`table${hook}`));
     const sortables = tables.map(table => {
       return createSortableTable(table);
     })
