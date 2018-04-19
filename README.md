@@ -5,7 +5,7 @@
 First install in the terminal:
 
 ```bash
-npm install sortable-js
+npm install sortabletables-js
 ```
 
 Then in your file:

@@ -1,13 +1,17 @@
 {
-  "name": "tablesort-js",
+  "name": "sortabletables-js",
   "version": "0.1.0",
-  "description": "A Vanilla.js dropin library for making HTML tables sortable",
-  "main": "index.js",
+  "description": "A no-frills Vanilla.js library for making HTML tables sortable",
+  "main": "./lib/sortablejs.js",
   "scripts": {
     "start": "webpack --mode development",
     "build": "webpack --mode production"
   },
   "author": "Brendan Beltz <brendanwebdev@gmail.com> (https://github.com/bthegit)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BtheGit/sortable-js.git"
+  },
   "bugs": {
     "url": "https://github.com/BtheGit/sortable-js/issues"
   },
