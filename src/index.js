@@ -29,24 +29,17 @@ const createSortableTable = tableContainer => {
     throw new Error('All <tr/>s in <tbody/> must contain the same number of <td/>s as the <tr/> in the <thead/>')
   }
   
-  const addEventListeners = headers => {
-    headers.map((cell, col) => {
-      if(!cell.dataset.hasOwnProperty('fixed')){
-        cell.tabIndex = 0;
-        cell.dataset['sorted'] = false;
-        cell.addEventListener('click', sort);
-        cell.addEventListener('keydown', sort);
-      }
-    })
-  }
+
   
   const rebuildTable = rows => {
     const fakeFragment = document.createElement('div');
-    fakeFragment.appendChild(tableBodyContainer.cloneNode())
+    fakeFragment.appendChild(tableBodyContainer.cloneNode());
     rows.map(row => {
       fakeFragment.children[0].appendChild(row.cloneNode(true));
     })
     tableContainerNode.replaceChild(fakeFragment.children[0], tableContainerNode.querySelector('tbody'));
+    
+    // Update stale references
     tableBodyContainer = tableContainerNode.children[1];
     tableBody = Array.from(tableBodyContainer.children);
   }
@@ -73,29 +66,13 @@ const createSortableTable = tableContainer => {
     const isSorted = e.target.dataset['sorted'];
     const unsorted = Array.from(tableBodyContainer.children);
     const sortUp = !isSorted ? true : isSorted === 'up' ? false : true;
-    const sorted = unsorted.sort((curr, next) => {
-      let a = curr.children[sortCol].innerText;
-      let b = next.children[sortCol].innerText;
-      if(sortUp) {
-        if(isValidNumber(a) && isValidNumber(b)){
-          return removeCurrency(a) - removeCurrency(b);
-        }
-        // localeCompare offers support for non-ASCII characters
-        return a.localeCompare(b); 
-      }
-      else {
-        if(isValidNumber(a) && isValidNumber(b)){
-          return removeCurrency(b) - removeCurrency(a);
-        }
-        return b.localeCompare(a);
-      }
-    });
+    const sorted = sortRows(unsorted, sortCol, sortUp);    
     rebuildTable(sorted);
     setActiveSortCol(sortCol);
   }
 
   try{
-    addEventListeners(headers);
+    addEventListeners(headers, sort);
     return tableContainerNode;
   }
   catch(err){
@@ -104,7 +81,49 @@ const createSortableTable = tableContainer => {
 }
 
 const removeCurrency = str => str.replace(/[$,]/g, '');
+
 const isValidNumber = str => !isNaN(removeCurrency(str));
+
+// Array.prototype.sort uses a stable merge sort in Safari and Firefox but not in all
+// browers. Instead of reimplementing one of those methods, a simple check of equality
+// here lets us use the rows initial order when the values are the same.
+const sortRows = (unsorted, sortCol, sortUp) => {
+  const compare = compareFunction(sortCol, sortUp);
+  const unsortedWithIndex = unsorted.map((node, index) => ({ node, index }));
+  const sortedWithIndex = unsortedWithIndex.sort((curr, next) => compare(curr.node, next.node) || curr.index - next.index );
+  const sorted = sortedWithIndex.map(({ node }) => node);
+  return sorted;
+}
+
+const compareFunction = (sortCol, sortUp) => (curr, next) => {
+  let a = curr.children[sortCol].innerText;
+  let b = next.children[sortCol].innerText;
+  if(sortUp) {
+    if(isValidNumber(a) && isValidNumber(b)){
+      return removeCurrency(a) - removeCurrency(b);
+    }
+    // localeCompare offers support for non-ASCII characters
+    return a.localeCompare(b); 
+  }
+  else {
+    if(isValidNumber(a) && isValidNumber(b)){
+      return removeCurrency(b) - removeCurrency(a);
+    }
+    return b.localeCompare(a);
+  }
+}
+
+const addEventListeners = (headers, callback) => {
+  headers.map((cell, col) => {
+    if(!cell.dataset.hasOwnProperty('fixed')){
+      cell.tabIndex = 0;
+      cell.dataset['sorted'] = false;
+      cell.addEventListener('click', callback);
+      cell.addEventListener('keydown', callback);
+    }
+  })
+  return headers;
+}
 
 /**
  * 
