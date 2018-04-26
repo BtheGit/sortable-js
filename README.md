@@ -28,17 +28,59 @@ sortablejs();
 
 ## Options
 
+### Hook (options.hook)
+
 To indicate a table should be sortable, add the attribute 'data-sortable' to the table element. Multiple tables on a single page can be sortable.
 
 If you want to prevent a single column in a sortable table from being sortable, add the attribute 'data-fixed' to the \<th/> element in the \<thead/> corresponding to the column you want to be unsortable.
 
 An optional string representing a custom selector can be passed to the library when initialized. By default the library uses '[data-sortable]'.
 
-eg:
 
 ```javascript
-sortablejs('.custom-sortable-table-classname');
+sortablejs({ hook: '.custom-sortable-table-classname' });
 ```
+
+### Custom Data Types and Sort Functions (options.customSortFunctions)
+
+Currently, the library uses one generic sort function. It is possible to pass in custom sort functions. To do so you should do two things:
+
+1. Add the data-sortable-type attribute to the \<th/> of the column you wish to sort with a corresponding value matching the name of your custom sort function.
+
+
+    ```html
+    <th data-sortable-type="color">Colors</th>
+    ```
+
+2. Add a corresponding sort function to the cusomSortFunctions object in the settings object.
+
+    ```javascript
+    sortablejs({
+      hook: '[data-sortable]',
+      customSortFunctions: {
+        color: () => {},
+      }
+    })
+    ```
+
+* IMPORTANT: If you pass a sort function that does not have a matching data-sortable-type on the table, the library will default to using the generic sort function
+
+* DOUBLE DOG IMPORTANT: Do not use a custom sort function with the name \_\_default\_\_ unless you're the sort of person who likes starting off their JS programs with Object.prototype.hasOwnProperty = () => false;
+
+#### Custom Sort Functions (How to write one)
+
+Your custom sort function will be called with three arguments: the current value, the next value, and a boolean representing whether or not the current sort direction is up.
+
+Your sort function should return an integer value representing the desired order of the current and next values. In the case of equality (returning 0), their order will be preserved.
+
+**A basic example of a numerical sort function:**
+
+```javascript
+const number = (a, b, sortUp) => {
+  return sortUp ? a - b : b - a;
+}
+```
+
 
 ## Table requirements
 
