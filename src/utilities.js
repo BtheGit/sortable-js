@@ -30,3 +30,16 @@ export const addEventListeners = (headers, callback) => {
   })
   return headers;
 }
+
+export const rebuildTable = (rows, tableBodyContainer, tableContainerNode, tableBody) => {
+  const fakeFragment = document.createElement('div');
+  fakeFragment.appendChild(tableBodyContainer.cloneNode());
+  rows.map(row => {
+    fakeFragment.children[0].appendChild(row.cloneNode(true));
+  })
+  tableContainerNode.replaceChild(fakeFragment.children[0], tableContainerNode.querySelector('tbody'));
+  
+  // Update stale references
+  tableBodyContainer = tableContainerNode.children[1];
+  tableBody = Array.from(tableBodyContainer.children);
+}

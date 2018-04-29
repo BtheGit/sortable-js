@@ -21,7 +21,7 @@ sortablejs();
 or
 
 ```javascript
-const sortablejs = require('sortabletables-js');
+const sortablejs = require('sortabletables-js').default;
 
 sortablejs();
 ```
