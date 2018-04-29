@@ -4,7 +4,7 @@
   "description": "A no-frills Vanilla.js library for making HTML tables sortable",
   "main": "./lib/sortablejs.js",
   "scripts": {
-    "start": "webpack --mode development",
+    "start": "webpack --watch --mode development",
     "build": "webpack --mode production"
   },
   "author": "Brendan Beltz <brendanwebdev@gmail.com> (https://github.com/bthegit)",
