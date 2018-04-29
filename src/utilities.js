@@ -43,3 +43,15 @@ export const rebuildTable = (rows, tableBodyContainer, tableContainerNode, table
   tableBodyContainer = tableContainerNode.children[1];
   tableBody = Array.from(tableBodyContainer.children);
 }
+
+export const setActiveSortCol = (sortCol, headers, tableBody) => {
+  headers.map((col, idx) => {
+    if(col.dataset.hasOwnProperty('fixed')) return;
+    col.dataset['sorted'] = idx !== sortCol ? false : col.dataset['sorted'] === 'up' ? 'down' : 'up';
+  });
+  tableBody.map(row => {
+    [...row.children].map((cell, idx) => {
+      cell.dataset['sorted'] = idx === sortCol;
+    })
+  });
+}

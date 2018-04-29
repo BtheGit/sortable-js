@@ -1,12 +1,11 @@
+import './polyfills';
 import baseSortFunctions from './baseSortFunctions';
 import {
   addEventListeners,
   sortRows,
   rebuildTable,
+  setActiveSortCol,
 } from './utilities';
-import './polyfills';
-
-
 
 const createSortableTable = ({
   table,
@@ -14,46 +13,41 @@ const createSortableTable = ({
 }) => {
   const tableContainerNode = table;
   const tableHead = tableContainerNode.querySelector('thead');
+
   if(!tableHead){
     throw new Error('A table must have a <thead/> to be sortable');
   }
+
   const headerRows = tableHead.querySelectorAll('tr');
+
   if(!headerRows.length){
     throw new Error('A table must have a <thead/> containing a <tr/> to be sortable')
   }
   if(headerRows.length > 1){
     throw new Error('A table with a <thead/> containing more than one <tr/> is not sortable')
   }
+
   const headerRow = headerRows[0];
   let headers = Array.from(headerRow.querySelectorAll('th'));
+
   if(headers.length < 2){
     throw new Error('Tables must contain a <thead/> with more than one <th/> to be sortable')
   }
+
   let tableBodyContainer = tableContainerNode.querySelector('tbody');
+  
   if(!tableBodyContainer){
     throw new Error('Tables must contain a <tbody/> to be sortable')
   }
+
   let tableBody = Array.from(tableBodyContainer.children);
+
   if(tableBody.length < 2){
     throw new Error('Tables must contain a <tbody/> with at least two rows to be sortable')
   }
 
   if(!tableBody.every(row => row.children.length === headers.length)){
     throw new Error('All <tr/>s in <tbody/> must contain the same number of <td/>s as the <tr/> contains <th/>s in the <thead/>')
-  }
-  
-  
-  
-  const setActiveSortCol = sortCol => {
-    headers.map((col, idx) => {
-      if(col.dataset.hasOwnProperty('fixed')) return;
-      col.dataset['sorted'] = idx !== sortCol ? false : col.dataset['sorted'] === 'up' ? 'down' : 'up';
-    });
-    tableBody.map(row => {
-      [...row.children].map((cell, idx) => {
-        cell.dataset['sorted'] = idx === sortCol;
-      })
-    });
   }
   
   const sort = e => {
@@ -74,7 +68,7 @@ const createSortableTable = ({
     const sorted = sortRows(sortFunction, unsorted, sortCol, sortUp);    
 
     rebuildTable(sorted, tableBodyContainer, tableContainerNode, tableBody); // TODO Make purer
-    setActiveSortCol(sortCol);
+    setActiveSortCol(sortCol, headers, tableBody);
   }
 
   try{
