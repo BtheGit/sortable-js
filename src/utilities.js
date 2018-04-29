@@ -62,21 +62,14 @@ export const addEventListeners = (headers, callback) => {
 /**
  * IMPURE: DOM MANIPULATION
  * @param {HTMLElement[]} rows 
- * @param {HTMLElement} tableBodyContainer 
- * @param {HTMLElement} tableContainerNode 
- * @param {HTMLElement[]} tableBody 
  */
-export const rebuildTable = (rows, tableBodyContainer, tableContainerNode, tableBody) => {
-  const fakeFragment = document.createElement('div');
-  fakeFragment.appendChild(tableBodyContainer.cloneNode());
-  rows.map(row => {
-    fakeFragment.children[0].appendChild(row.cloneNode(true));
-  })
-  tableContainerNode.replaceChild(fakeFragment.children[0], tableContainerNode.querySelector('tbody'));
-  
-  // Update stale references
-  tableBodyContainer = tableContainerNode.children[1];
-  tableBody = Array.from(tableBodyContainer.children);
+export const reorderRows = rows => {
+  for(let i = rows.length - 1; i > 0; i--){
+    const secondNode = rows[i];
+    const firstNode = rows[i-1];
+    const parent = secondNode.parentNode;
+    parent.insertBefore(firstNode, secondNode);
+  }
 }
 
 /**

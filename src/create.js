@@ -1,7 +1,8 @@
 import {
   addEventListeners,
   sortRows,
-  rebuildTable,
+  // rebuildTable,
+  reorderRows,
   setActiveSortCol,
 } from './utilities';
 
@@ -64,8 +65,8 @@ const createSortableTable = ({
     const sortFunction = sortFunctions[sortType] || sortFunctions['__default__'];
 
     const sorted = sortRows(sortFunction, unsorted, sortCol, sortUp);    
-
-    rebuildTable(sorted, tableBodyContainer, tableContainerNode, tableBody); // TODO Make purer
+    reorderRows(sorted);
+    // rebuildTable(sorted, tableBodyContainer, tableContainerNode, tableBody); // TODO Make purer
     setActiveSortCol(sortCol, headers, tableBody);
   }
 
