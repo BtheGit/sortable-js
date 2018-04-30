@@ -1,52 +1,31 @@
 import {
   addEventListeners,
   sortRows,
-  // rebuildTable,
   reorderRows,
   setActiveSortCol,
 } from './utilities';
 
 const createSortableTable = ({
-  table,
+  table: tableContainerNode,
+  headerRowSelector,
+  bodyRowsSelector,
   sortFunctions,
 }) => {
-  const tableContainerNode = table;
-  const tableHead = tableContainerNode.querySelector('thead');
+  const headersList = tableContainerNode.querySelectorAll(headerRowSelector);
+  const bodyList = tableContainerNode.querySelectorAll(bodyRowsSelector);
+  const headers = Array.from(headersList);
+  const tableBody = Array.from(bodyList);
 
-  if(!tableHead){
-    throw new Error('A table must have a <thead/> to be sortable');
+  if(!headersList.length){
+    throw new Error('Tables must contain at least 1 column to be sortable')
   }
 
-  const headerRows = tableHead.querySelectorAll('tr');
-
-  if(!headerRows.length){
-    throw new Error('A table must have a <thead/> containing a <tr/> to be sortable')
-  }
-  if(headerRows.length > 1){
-    throw new Error('A table with a <thead/> containing more than one <tr/> is not sortable')
-  }
-
-  const headerRow = headerRows[0];
-  let headers = Array.from(headerRow.querySelectorAll('th'));
-
-  if(headers.length < 2){
-    throw new Error('Tables must contain a <thead/> with more than one <th/> to be sortable')
-  }
-
-  let tableBodyContainer = tableContainerNode.querySelector('tbody');
-  
-  if(!tableBodyContainer){
-    throw new Error('Tables must contain a <tbody/> to be sortable')
-  }
-
-  let tableBody = Array.from(tableBodyContainer.children);
-
-  if(tableBody.length < 2){
-    throw new Error('Tables must contain a <tbody/> with at least two rows to be sortable')
+  if(!bodyList.length){
+    throw new Error('Tables must contain rows to be sortable')
   }
 
   if(!tableBody.every(row => row.children.length === headers.length)){
-    throw new Error('All <tr/>s in <tbody/> must contain the same number of <td/>s as the <tr/> contains <th/>s in the <thead/>')
+    throw new Error('All rows must contain the same number of columns as the header row')
   }
   
   const sort = e => {
@@ -55,8 +34,8 @@ const createSortableTable = ({
         return;
       }
     }
-    const unsorted = Array.from(tableBodyContainer.children);
-    const sortCol = e.target.cellIndex;
+
+    const sortCol = headers.indexOf(e.target);
 
     const isSorted = e.target.dataset['sorted'];
     const sortUp = !isSorted ? true : isSorted === 'up' ? false : true;
@@ -64,9 +43,8 @@ const createSortableTable = ({
     const sortType = e.target.dataset.sortableType || '__default__';
     const sortFunction = sortFunctions[sortType] || sortFunctions['__default__'];
 
-    const sorted = sortRows(sortFunction, unsorted, sortCol, sortUp);    
+    const sorted = sortRows(sortFunction, tableBody, sortCol, sortUp);    
     reorderRows(sorted);
-    // rebuildTable(sorted, tableBodyContainer, tableContainerNode, tableBody); // TODO Make purer
     setActiveSortCol(sortCol, headers, tableBody);
   }
 

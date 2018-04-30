@@ -15,7 +15,6 @@ export const removeCurrency = str => str.replace(/[$,]/g, '');
  */
 export const isValidNumber = str => !isNaN(removeCurrency(str));
 
-
 /**
  * Javascript's native Array sort is not stable across all browsers. Instead of using a completely different sorting
  * algorithm, a simple check of equality and deference to index order in cases where it exists allows us
@@ -25,7 +24,7 @@ export const isValidNumber = str => !isNaN(removeCurrency(str));
  * @param {HTMLElement[]} unsorted 
  * @param {number} sortCol 
  * @param {boolean} sortUp
- * @return {HTMLElement[]}
+ * @return {HTMLElement[]} Array of Nodes
  */
 export const sortRows = (sortFunction, unsorted, sortCol, sortUp) => {
   const unsortedWithIndex = unsorted.map((node, index) => ({ node, index }));

@@ -28,24 +28,41 @@ sortablejs();
 
 ## Options
 
-### Hook (options.hook)
+### Table Selector (options.tableSelector)
+>Default table selector: 'table[data-sortable]'
 
-To indicate a table should be sortable, add the attribute 'data-sortable' to the table element. Multiple tables on a single page can be sortable.
+By default, to indicate a table should be sortable, add the attribute 'data-sortable' to the table container element. Multiple tables on a single page can be sortable.
 
-If you want to prevent a single column in a sortable table from being sortable, add the attribute 'data-fixed' to the \<th/> element in the \<thead/> corresponding to the column you want to be unsortable.
+If you want to prevent a single column in a sortable table from being sortable, add the attribute 'data-fixed' to the header cell of the column you want to be unsortable.
 
-An optional string representing a custom selector can be passed to the library when initialized. By default the library uses '[data-sortable]'.
+An optional string representing a custom selector can be passed to the library when initialized. By default the library uses 'table[data-sortable]'.
 
 
 ```javascript
-sortablejs({ hook: '.custom-sortable-table-classname' });
+sortablejs({ tableSelector: '.custom-sortable-table-classname' });
 ```
+
+### Column Header Cells and Body Rows Selectors(options.headerRowSelector & options.bodyRowsSelector)
+>Default header cells selector: 'thead th'
+>
+>Default body rows selector: 'tbody tr'
+
+Use these options to override the default targets for header cells and body rows. This is mostly useful for cases where you may be creating a table using atypical HTML elements.
+
+```javascript
+sortablejs({
+    tableSelector: '.fake-table',
+    headerRowSelector: '.fake-table-header > div',
+    bodyRowsSelector: '.fake-table-row',
+})
+```
+
 
 ### Custom Data Types and Sort Functions (options.customSortFunctions)
 
 Currently, the library uses one generic sort function. It is possible to pass in custom sort functions. To do so you should do two things:
 
-1. Add the data-sortable-type attribute to the \<th/> of the column you wish to sort with a corresponding value matching the name of your custom sort function.
+1. Add the data-sortable-type attribute to the header cell of the column you wish to sort with a corresponding value matching the name of your custom sort function.
 
 
     ```html
@@ -56,7 +73,7 @@ Currently, the library uses one generic sort function. It is possible to pass in
 
     ```javascript
     sortablejs({
-      hook: '[data-sortable]',
+      tableSelector: 'table[data-sortable]',
       customSortFunctions: {
         color: () => {},
       }
@@ -82,9 +99,11 @@ const number = (a, b, sortUp) => {
 ```
 
 
-## Table requirements
+## Table requirements:
 
-Tables must follow the following basic structure:
+Tables do not need to use table specific elements if a custom override is provided (see second example below)
+
+#### The classic table structure works out of the box with the library's default selectors:
 
 ```html
 <table data-sortable>
@@ -104,12 +123,44 @@ Tables must follow the following basic structure:
       <td></td>
     </tr>
   </tbody>
+  <tfoot>
+    <td></td>
+  </tfoot>
 </table>
 ```
+```javascript
+sortablejs()
+```
 
-Tables must:
+#### Using custom selectors we are able to turn simple divs into a sortable table as well:
 
-1) Have a single \<thead/> and single \<tbody/>
-2) The \<thead/> must only have one \<tr/> containing at least two \<th/>s
-3) The \<tbody/> must contain at least two \<tr/>s
-4) The number of \<td/>s in all \<tr/>s in the \<tbody/> must match the number of \<th/>s in the \<thead/>
+```html
+<div class="fake-table">
+  <div class="fake-table-header">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="fake-table-row">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <div class="fake-table-row">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+```
+```javascript
+sortablejs({
+    tableSelector: '.fake-table',
+    headerRowSelector: '.fake-table-header > div',
+    bodyRowsSelector: '.fake-table-row',
+})
+```
+
+> IMPORTANT:
+>
+>The number of cells in each row in the body (row.children) must be equal to the number of cells in the header row or an error will be thrown.

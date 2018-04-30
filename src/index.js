@@ -5,15 +5,17 @@ import createSortableTable from './create';
 
 /**
  * 
- * @param {string} [hook="[data-sortable]"] The selector used to identify tables designated for sorting
- * @returns {HTMLElement[]} An array of nodes representing the table elements of sortable tables
+ * @param {string} [tableSelector="table[data-sortable]"] The selector used to identify tables designated for sorting
+ * @return {HTMLElement[]} An array of nodes representing the table elements of sortable tables
  */
 const generateSortableTables = ({
-  hook = '[data-sortable]',
+  tableSelector = 'table[data-sortable]',
+  headerRowSelector = 'thead th',
+  bodyRowsSelector = 'tbody tr',
   customSortFunctions = {},
 } = {}) => {
-  if(typeof hook !== 'string'){
-    throw new Error('Must use a valid selector string as hook');
+  if(typeof tableSelector !== 'string'){
+    throw new Error('Must use a valid selector string as tableSelector');
   }
 
   if(typeof customSortFunctions !== 'object' || customSortFunctions === null){
@@ -31,9 +33,14 @@ const generateSortableTables = ({
   
   try {
     const sortFunctions = Object.assign({}, baseSortFunctions, customSortFunctions);
-    const tables = Array.from(document.querySelectorAll(`table${hook}`));
+    const tables = Array.from(document.querySelectorAll(tableSelector));
     const sortables = tables.map(table => {
-      return createSortableTable({ table, sortFunctions });
+      return createSortableTable({ 
+        table, 
+        sortFunctions, 
+        headerRowSelector,
+        bodyRowsSelector,
+      });
     })
     return sortables;
   }
