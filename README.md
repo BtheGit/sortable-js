@@ -26,14 +26,32 @@ const sortablejs = require('sortabletables-js').default;
 sortablejs();
 ```
 
-## Options
+## Table Attribute Options
+
+### Fixed Columns (data-fixed)
+
+If you do not want a column to be sortable (i.e. not be given the data-sorted attribute or an event listener to handle interaction), add the attribute 'data-fixed' to the header cell.
+
+Note: This does not freeze the position of the column cells, they will still reorder when other columns are sorted.
+
+### Presorting (data-sortable-presort)
+
+If you want to have a table sort on initialization, add the attribute 'data-sortable-presort' to the header cell of the column you wish to presort the table by. 
+
+NOTE: The presort only sorts according to the first column with the attribute it finds. If you have added the presort attribute multiply times, it will ignore all but the first.
+
+### Column Data Type (data-sortable-type="xxx")
+
+To specify a specific type for a column, use the attribute 'data-sortable-type="name"', where 'name' is the name of the type you wish to specify. 
+
+The type is used during sorting to determine which sort function to apply to the column. In order to utilize custom sort functions, you need to pass in the function during initialization and specify its key in this attribute, i.e. 'data-sortable-type="customSortFunctionKey"'. (See Custom Data Types and Sort Functions below for more information.)
+
+## Initialization Options
 
 ### Table Selector (options.tableSelector)
 >Default table selector: 'table[data-sortable]'
 
 By default, to indicate a table should be sortable, add the attribute 'data-sortable' to the table container element. Multiple tables on a single page can be sortable.
-
-If you want to prevent a single column in a sortable table from being sortable, add the attribute 'data-fixed' to the header cell of the column you want to be unsortable.
 
 An optional string representing a custom selector can be passed to the library when initialized. By default the library uses 'table[data-sortable]'.
 

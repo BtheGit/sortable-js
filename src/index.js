@@ -2,7 +2,6 @@ import './polyfills';
 import baseSortFunctions from './baseSortFunctions';
 import createSortableTable from './create';
 
-
 /**
  * 
  * @param {string} [tableSelector="table[data-sortable]"] The selector used to identify tables designated for sorting
