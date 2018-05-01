@@ -1,4 +1,3 @@
-import './polyfills';
 import baseSortFunctions from './baseSortFunctions';
 import createSortableTable from './create';
 
