@@ -25,6 +25,7 @@ const sortablejs = require('sortabletables-js');
 
 sortablejs();
 ```
+#### NOTE: This library uses Array.from and Object.assign. These require polyfills for ie11 compatibility.
 
 ## Options
 
