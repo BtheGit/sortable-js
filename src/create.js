@@ -7,11 +7,11 @@ import {
 
 const createSortableTable = ({
   table: tableContainerNode,
-  headerRowSelector,
+  columnHeadersSelector,
   bodyRowsSelector,
   sortFunctions,
 }) => {
-  const headersList = tableContainerNode.querySelectorAll(headerRowSelector);
+  const headersList = tableContainerNode.querySelectorAll(columnHeadersSelector);
   const bodyList = tableContainerNode.querySelectorAll(bodyRowsSelector);
   const headers = Array.from(headersList);
   const tableBody = Array.from(bodyList);

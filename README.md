@@ -61,7 +61,7 @@ An optional string representing a custom selector can be passed to the library w
 sortablejs({ tableSelector: '.custom-sortable-table-classname' });
 ```
 
-### Column Header Cells and Body Rows Selectors(options.headerRowSelector & options.bodyRowsSelector)
+### Column Header Cells and Body Rows Selectors(options.columnHeadersSelector & options.bodyRowsSelector)
 >Default header cells selector: 'thead th'
 >
 >Default body rows selector: 'tbody tr'
@@ -71,7 +71,7 @@ Use these options to override the default targets for header cells and body rows
 ```javascript
 sortablejs({
     tableSelector: '.fake-table',
-    headerRowSelector: '.fake-table-header > div',
+    columnHeadersSelector: '.fake-table-header > div',
     bodyRowsSelector: '.fake-table-row',
 })
 ```
@@ -175,7 +175,7 @@ sortablejs()
 ```javascript
 sortablejs({
     tableSelector: '.fake-table',
-    headerRowSelector: '.fake-table-header > div',
+    columnHeadersSelector: '.fake-table-header > div',
     bodyRowsSelector: '.fake-table-row',
 })
 ```

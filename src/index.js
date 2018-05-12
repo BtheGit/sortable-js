@@ -8,7 +8,7 @@ import createSortableTable from './create';
  */
 const generateSortableTables = ({
   tableSelector = 'table[data-sortable]',
-  headerRowSelector = 'thead th',
+  columnHeadersSelector = 'thead th',
   bodyRowsSelector = 'tbody tr',
   customSortFunctions = {},
 } = {}) => {
@@ -36,7 +36,7 @@ const generateSortableTables = ({
       return createSortableTable({ 
         table, 
         sortFunctions, 
-        headerRowSelector,
+        columnHeadersSelector,
         bodyRowsSelector,
       });
     })
