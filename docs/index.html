@@ -15,6 +15,9 @@
     body {
       padding: 20px;
     }
+    h1 {
+      margin: 20px auto;
+    }
 
     header {
       width: 800px;
@@ -56,6 +59,11 @@
     th {
       position: relative;
       box-shadow: 0 0 1px #DDD inset;
+    }
+
+    thead tr:not(:first-child), tfoot {
+      background: linear-gradient(to left top, violet,purple);
+      color: white;
     }
 
     th:not([data-fixed]) {
@@ -112,7 +120,8 @@
 </head>
 <body>
   <header>
-    <h1>Multiple Sortable Tables</h1>
+    <h1>Sortable Tables Demo</h1>
+    <h3>(Multiple sortable tables on a page are supported)</h3>
     </header>
     <table data-sortable>
       <thead>
@@ -137,8 +146,8 @@
           <td>9/1/1934</td>
         </tr>
         <tr>
-          <td>Jesus</td>
-          <td>lowe</td>
+          <td>Wile</td>
+          <td>Coyote</td>
           <td>33</td>
           <td>1/1/0</td>
         </tr>
@@ -151,37 +160,49 @@
           <th>Nums</th>
           <th>Case</th>
           <th>Mixed</th>
+          <th data-sortable-presort>Presorted</th>
         </tr>
+        <tr><td>I AM AN EXTRA THINGAMAJIG THAT IS IGNORED</td></tr>
       </thead>
       <tbody>
         <tr>
           <td>0</td>
           <td>Heart</td>
           <td>44 N Edgewood St</td>
+          <td>5</td>
         </tr>
         <tr>
           <td>-0.9</td>
           <td></td>
           <td>122 Xintian St</td>
+          <td>3</td>
         </tr>
         <tr>
           <td>0.9</td>
           <td>heart</td>
           <td>34 Wilson Blvd</td>
+          <td>1</td>
         </tr>
         <tr>
           <td>$99,999</td>
           <td>Heartache</td>
           <td>1600 Pennsylvania Ave</td>
+          <td>2</td>
         </tr>
         <tr>
           <td>10e2</td>
           <td>Heart-ache</td>
           <td>Oz</td>
+          <td>4</td>
         </tr>
       </tbody>
+      <tfoot>
+        <td>TABLE FOOTER (I am also ignored)</td>
+      </tfoot>
     </table>
-    <script src="https://rawgit.com/bthegit/sortable-js/master/src/index.js"></script>
-    <script>generateSortableTables()</script>
+    <!-- <script src="../lib/sortablejs.js"></script> -->
+    <!-- <script>sortablejs.default()</script> -->
+    <script src="https://rawgit.com/bthegit/sortable-js/master/lib/sortablejs.js"></script>
+    <script>window.addEventListener('load', sortablejs.default)</script>
 </body>
 </html>
